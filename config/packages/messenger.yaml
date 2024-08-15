@@ -8,10 +8,17 @@ framework:
             # async: '%env(MESSENGER_TRANSPORT_DSN)%'
             # failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
+            doctrine:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    table_name: messenger_messages
 
         routing:
             # Route your messages to the transports
             # 'App\Message\YourMessage': async
+            'Symfony\Component\Notifier\Message\ChatMessage': doctrine
+            'Symfony\Component\Notifier\Message\EmailMessage': doctrine
+            'Symfony\Component\Notifier\Message\SmsMessage': doctrine
 
 # when@test:
 #    framework:
